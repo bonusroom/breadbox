@@ -1,0 +1,74 @@
+************************************************************************
+
+	Canon RE-350 Example Application
+	
+************************************************************************
+
+Disk Contents:
+----------------
+
+	RE350.C		RE-350 communications driver.
+	RE350.H		Driver definitions.
+	RE350.OBJ	Object file.
+	RE350DLL.DLL	Dynamic Link Library.
+	RE350DLL.MAK	MicroSoft C/C++ Version 1.52 Project (NMAKE)
+
+	EXAMPLE.C	Sample Windows application.
+	EXAMPLE.OBJ	Object file
+	EXAMPLE.EXE	Executable Windows Application
+	EXAMPLE.DEF	Module definition file.
+	EXAMPLE.MAK	MicroSoft C/C++ Version 1.52 Project (NMAKE)
+
+	README.DOC	This file.
+	
+Notes:
+----------------
+
+1) This example application was written and compiled with MicroSoft C/C++ 
+and SDK Version 1.52 (16 bits ONLY). Open the project in MicroSoft 
+Visual C/C++ to edit and recompile. 
+
+The DLL and example application are built separately. You can use RE350DLL.DLL
+as is by importing the functions described below (or in RE350.H).
+
+You can also re-build the application in MS-DOS by typing:
+	
+	nmake -fre350dll.mak
+	nmake -fexample.mak
+	
+2) RE350.C and RE350.H constitute the basic driver and are generalized 
+to work with any application. All of the functions return an error code 
+(defined in RE350.H) to indicate whether the operation was successful.
+
+// ------------------------------------------------------
+//	Initialize communications with the RE-350.
+// ------------------------------------------------------
+
+int FAR PASCAL 	RE350_Open( int iComPort )
+
+	int iComPort:	RE350_COM1-RE350_COM4
+
+// ------------------------------------------------------
+//	Execute an RE-350 command.
+// ------------------------------------------------------
+
+int FAR PASCAL 	RE350_Command( int iDevice, int nCmd, WORD wRequest, LPWORD lpwResponse );
+
+	int iDevice:		device 0-3 (check dipswitch on the back)
+	int nCmd:		Command defined in RE350.H.
+	WORD wRequest:		Request data if required by command. 
+				(Use RE350_NULL_REQUEST if not required).
+	LPWORD wRequest:	Pointer to response (or NULL).
+		
+// ------------------------------------------------------
+//	Close communications with the RE-350
+// ------------------------------------------------------
+
+VOID FAR PASCAL	RE350_Close( VOID );
+
+4) EXAMPLE.C is a simple application which demonstrates the operation of 
+the driver. After getting this to compile in your environment, you can
+add additional commands (via RE350_Command) to test the camera's operation.
+All of the RE-350 commands are implemented through this function.
+
+

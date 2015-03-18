@@ -1,0 +1,109 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "example.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+RE350ICON               ICON    DISCARDABLE     "EXAMPLE.ICO"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+EXAMPLE MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "E&xit",                       IDM_EXIT
+    END
+    POPUP "&Setup"
+    BEGIN
+        MENUITEM "RESET",                       IDM_RESET
+        MENUITEM SEPARATOR
+        MENUITEM "COM1",                        IDM_COM1
+        MENUITEM "COM2",                        IDM_COM2
+        MENUITEM "COM3",                        IDM_COM3
+        MENUITEM "COM4",                        IDM_COM4
+    END
+    POPUP "&Commands"
+    BEGIN
+        MENUITEM "BackLight",                   IDM_BACKLIGHT
+        MENUITEM "Lights",                      IDM_LIGHTS
+        MENUITEM "Negative",                    IDM_NEGATIVE
+        MENUITEM "B/W",                         IDM_BW
+        MENUITEM "Input",                       IDM_INPUT
+    END
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""example.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,57 @@
+/***************************************************************************
+
+	FILE:		example.rc
+
+	AUTHOR:		Eric Chasanoff
+
+	REVISIONS:	08.15.96	Written
+
+	DESCRIPTION:
+
+		Example application resource file.
+
+	DISCLAIMER:
+
+		Raster Builders and Eric Chasanoff make no representations
+		about the correctness or suitability of this software for
+		any purpose. It is provided without express or implied
+		warranty.
+
+
+***************************************************************************/
+
+#include <windows.h>
+
+#include "example.h"
+
+RE350ICON	ICON	EXAMPLE.ICO
+
+EXAMPLE MENU
+	BEGIN
+	POPUP "&File"
+		BEGIN
+		MENUITEM "E&xit",			IDM_EXIT
+		END
+
+	POPUP "&Setup"
+		BEGIN
+		MENUITEM "RESET",			IDM_RESET
+		MENUITEM SEPARATOR
+		MENUITEM "COM1",			IDM_COM1
+		MENUITEM "COM2",			IDM_COM2
+		MENUITEM "COM3",			IDM_COM3
+		MENUITEM "COM4",			IDM_COM4
+		END
+
+	POPUP "&Commands"
+		BEGIN
+		MENUITEM "BackLight",		IDM_BACKLIGHT
+		MENUITEM "Lights",		IDM_LIGHTS
+		MENUITEM "Negative",		IDM_NEGATIVE
+		MENUITEM "B/W",			IDM_BW
+		MENUITEM "Input",		IDM_INPUT
+		END
+	END
+
+/* end of file : example.rc */
+

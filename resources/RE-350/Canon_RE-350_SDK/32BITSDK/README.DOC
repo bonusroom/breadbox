@@ -1,0 +1,51 @@
+************************************************************************
+
+	Canon RE-350 Example Application
+	
+************************************************************************
+
+1) This example application was written and compiled with MicroSoft C/C++ 
+and SDK Version 4.0 (32 bits ONLY). Open the project in MicoSoft 
+Visual C/C++ 4.0 to edit and recompile. 
+
+2) The RE-350 driver (RE350.DLL) is located in .\EXAMPLE\RE350 and has been set
+up as a sub-project of EXAMPLE. It will be automatically updated if EXAMPLE is 
+set as the project. The output is directed to the EXAMPLE\RELEASE directory 
+so any changes made to the DLL will be automatically loaded by the application 
+next time it is run. EXAMPLE explicitly loads and unloads the DLL using 
+LoadLibrary() and FreeLibrary() to facilitate this (see EXAMPLE.C).
+
+3) RE350.C and RE350.H constitute the basic driver and are generalized 
+to work with any application. All of the functions return an error code 
+(defined in RE350.H) to indicate whether the operation was successful.
+
+// ------------------------------------------------------
+//	Initialize communications with the RE-350.
+// ------------------------------------------------------
+
+int FAR PASCAL 	RE350_Open( int iComPort )
+
+	int iComPort:	RE350_COM1-RE350_COM4
+
+// ------------------------------------------------------
+//	Execute an RE-350 command.
+// ------------------------------------------------------
+
+int FAR PASCAL 	RE350_Command( int iDevice, int nCmd, WORD wRequest, LPWORD lpwResponse );
+
+	int iDevice:		device 0-3 (check dipswitch on the back)
+	int nCmd:		Command defined in RE350.H.
+	WORD wRequest:		Request data if required by command. 
+				(Use RE350_NULL_REQUEST if not required).
+	LPWORD wRequest:	Pointer to response (or NULL).
+		
+// ------------------------------------------------------
+//	Close communications with the RE-350
+// ------------------------------------------------------
+
+VOID FAR PASCAL	RE350_Close( VOID );
+
+4) EXAMPLE.C is a simple application which demonstrates the operation of 
+the driver. After getting this to compile in your environment, you can
+add additional commands (via RE350_Command) to test the camera's operation.
+All of the RE-350 commands are implemented through this function.

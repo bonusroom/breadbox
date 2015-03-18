@@ -1,0 +1,8 @@
+LIBRARY		RE350
+
+DESCRIPTION	'Canon RE-350 Driver'
+
+EXPORTS
+	RE350_Open
+	RE350_Close
+	RE350_Command

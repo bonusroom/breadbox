@@ -1,0 +1,326 @@
+
+ RE350DLL
+
+ Start     Length     Name                   Class
+ 0001:0000 007C4H     RE350_TEXT             CODE 16-bit
+           at offset 00000H 007C4H bytes from RE350.OBJ (d:\source\canon\re-350\exampl16\re350.c)
+
+ 0001:07C4 00054H     WEP_TEXT               CODE 16-bit
+           at offset 00000H 0003CH bytes from c:\msvc\lib\mdllcew.lib (windows\wep.asm)
+           at offset 0003CH 00018H bytes from c:\msvc\lib\mdllcew.lib (windows\stubwep.asm)
+
+ 0001:0818 005BAH     _TEXT                  CODE 16-bit
+           at offset 00000H 0000BH bytes from c:\msvc\lib\mdllcew.lib (lshl.asm)
+           at offset 0000CH 000EDH bytes from c:\msvc\lib\mdllcew.lib (windows\crt0.asm)
+           at offset 000FAH 000E3H bytes from c:\msvc\lib\mdllcew.lib (dos\crt0dat.asm)
+           at offset 001DEH 0002CH bytes from c:\msvc\lib\mdllcew.lib (windows\stubmain.asm)
+           at offset 0020AH 00023H bytes from c:\msvc\lib\mdllcew.lib (dos\crt0msg.asm)
+           at offset 0022EH 00077H bytes from c:\msvc\lib\mdllcew.lib (dos\stdenvp.asm)
+           at offset 002A6H 00006H bytes from c:\msvc\lib\mdllcew.lib (crt0fp.asm)
+           at offset 002ACH 00001H bytes from c:\msvc\lib\mdllcew.lib (nearstub.asm)
+           at offset 002AEH 0004EH bytes from c:\msvc\lib\mdllcew.lib (dos\nmsghdr.asm)
+           at offset 002FCH 0004CH bytes from c:\msvc\lib\mdllcew.lib (windows\fatal.asm)
+           at offset 00348H 0002DH bytes from c:\msvc\lib\mdllcew.lib (dos\stdalloc.asm)
+           at offset 00376H 00117H bytes from c:\msvc\lib\mdllcew.lib (growseg.asm)
+           at offset 0048EH 00010H bytes from c:\msvc\lib\mdllcew.lib (windows\windgrp.asm)
+           at offset 0049EH 00014H bytes from c:\msvc\lib\mdllcew.lib (windows\windgrpx.c)
+           at offset 004B2H 000F8H bytes from c:\msvc\lib\mdllcew.lib (windows\nheap.c)
+
+ 0002:0000 00010H     NULL                   BEGDATA 16-bit
+           at offset 00000H 00010H bytes from c:\msvc\lib\mdllcew.lib (windows\crt0.asm)
+
+ 0002:0010 00244H     _DATA                  DATA 16-bit
+           at offset 00000H 001E3H bytes from RE350.OBJ (d:\source\canon\re-350\exampl16\re350.c)
+           at offset 001E4H 00015H bytes from c:\msvc\lib\mdllcew.lib (windows\crt0.asm)
+           at offset 001FAH 00040H bytes from c:\msvc\lib\mdllcew.lib (dos\crt0dat.asm)
+           at offset 0023AH 00004H bytes from c:\msvc\lib\mdllcew.lib (dos\crt0msg.asm)
+           at offset 0023EH 00002H bytes from c:\msvc\lib\mdllcew.lib (growseg.asm)
+           at offset 00240H 00004H bytes from c:\msvc\lib\mdllcew.lib (windows\nheap.c)
+
+ 0002:0254 0000EH     CDATA                  DATA 16-bit
+           at offset 00000H 0000EH bytes from c:\msvc\lib\mdllcew.lib (dos\crt0dat.asm)
+
+ 0002:0262 00000H     XIFB                   DATA 16-bit
+ 0002:0262 00000H     XIF                    DATA 16-bit
+ 0002:0262 00000H     XIFE                   DATA 16-bit
+ 0002:0262 00000H     XIB                    DATA 16-bit
+ 0002:0262 00000H     XI                     DATA 16-bit
+ 0002:0262 00000H     XIE                    DATA 16-bit
+ 0002:0262 00000H     XPB                    DATA 16-bit
+ 0002:0262 00000H     XP                     DATA 16-bit
+ 0002:0262 00000H     XPE                    DATA 16-bit
+ 0002:0262 00000H     XCB                    DATA 16-bit
+ 0002:0262 00000H     XC                     DATA 16-bit
+ 0002:0262 00000H     XCE                    DATA 16-bit
+ 0002:0262 00000H     XCFB                   DATA 16-bit
+ 0002:0262 00000H     XCFCRT                 DATA 16-bit
+ 0002:0262 00000H     XCF                    DATA 16-bit
+ 0002:0262 00000H     XCFE                   DATA 16-bit
+ 0002:0262 00000H     XIFCB                  DATA 16-bit
+ 0002:0262 00000H     XIFU                   DATA 16-bit
+ 0002:0262 00000H     XIFL                   DATA 16-bit
+ 0002:0262 00000H     XIFM                   DATA 16-bit
+ 0002:0262 00000H     XIFCE                  DATA 16-bit
+ 0002:0262 00000H     DBDATA                 DATA 16-bit
+ 0002:0262 00000H     CONST                  CONST 16-bit
+ 0002:0262 00008H     HDR                    MSG 16-bit
+           at offset 00000H 00008H bytes from c:\msvc\lib\mdllcew.lib (dos\nmsghdr.asm)
+
+ 0002:026A 000D4H     MSG                    MSG 16-bit
+           at offset 00000H 000A5H bytes from c:\msvc\lib\mdllcew.lib (dos\crt0msg.asm)
+           at offset 000A5H 0002FH bytes from c:\msvc\lib\mdllcew.lib (crt0fp.asm)
+
+ 0002:033E 00002H     PAD                    MSG 16-bit
+           at offset 00000H 00002H bytes from c:\msvc\lib\mdllcew.lib (dos\crt0msg.asm)
+           at offset 00000H 00002H bytes from c:\msvc\lib\mdllcew.lib (crt0fp.asm)
+           at offset 00000H 00002H bytes from c:\msvc\lib\mdllcew.lib (dos\nmsghdr.asm)
+
+ 0002:0340 00001H     EPAD                   MSG 16-bit
+           at offset 00000H 00001H bytes from c:\msvc\lib\mdllcew.lib (dos\nmsghdr.asm)
+
+ 0002:0342 00020H     _BSS                   BSS 16-bit
+           at offset 00000H 0001FH bytes from RE350.OBJ (d:\source\canon\re-350\exampl16\re350.c)
+
+ 0002:0362 00000H     XOB                    BSS 16-bit
+ 0002:0362 00000H     XO                     BSS 16-bit
+ 0002:0362 00000H     XOE                    BSS 16-bit
+ 0002:0362 00000H     XOFB                   BSS 16-bit
+ 0002:0362 00000H     XOF                    BSS 16-bit
+ 0002:0362 00000H     XOFE                   BSS 16-bit
+
+ Origin   Group
+ 0002:0   DGROUP
+
+ Address   Export                  Alias
+
+ 0001:01BA RE350_Close             RE350_Close
+ 0001:01EC RE350_Command           RE350_Command
+ 0001:0000 RE350_Open              RE350_Open
+ 0001:07C4 WEP                     WEP
+ 0001:0CC6 ___ExportedStub         ___ExportedStub
+
+  Address         Publics by Name
+
+ 0000:0000  Imp  BUILDCOMMDCB         (USER.213)
+ 0000:0000  Imp  CLOSECOMM            (USER.207)
+ 0000:0000  Imp  DOS3CALL             (KERNEL.102)
+ 0000:0000  Imp  FATALAPPEXIT         (KERNEL.137)
+ 0000:0000  Imp  FATALEXIT            (KERNEL.1)
+ 0000:0000  Imp  GETCOMMERROR         (USER.203)
+ 0000:0000  Imp  GETCOMMEVENTMASK     (USER.209)
+ 0000:0000  Imp  GETCURRENTTIME       (USER.15)
+ 0000:0000  Imp  GETDOSENVIRONMENT    (KERNEL.131)
+ 0000:0000  Imp  GETMODULEUSAGE       (KERNEL.48)
+ 0000:0000  Imp  GETVERSION           (KERNEL.3)
+ 0000:0000  Imp  GLOBALREALLOC        (KERNEL.16)
+ 0000:0000  Imp  GLOBALSIZE           (KERNEL.20)
+ 0000:0000  Imp  INITTASK             (KERNEL.91)
+ 0000:0000  Imp  LOCALALLOC           (KERNEL.5)
+ 0000:0000  Imp  LOCALFREE            (KERNEL.7)
+ 0000:0000  Imp  LOCALINIT            (KERNEL.4)
+ 0000:0000  Imp  LOCALREALLOC         (KERNEL.6)
+ 0000:0000  Imp  LOCALSIZE            (KERNEL.10)
+ 0000:0000  Imp  LOCKSEGMENT          (KERNEL.23)
+ 0000:0000  Imp  OPENCOMM             (USER.200)
+ 0000:0000  Imp  PEEKMESSAGE          (USER.109)
+ 0001:01BA       RE350_Close
+ 0001:01EC       RE350_Command
+ 0001:0000       RE350_Open
+ 0000:0000  Imp  READCOMM             (USER.204)
+ 0002:0004       rsrvptrs
+ 0000:0000  Imp  SETCOMMSTATE         (USER.201)
+ 0000:0000  Imp  UNLOCKSEGMENT        (KERNEL.24)
+ 0001:07C4       WEP
+ 0000:0000  Imp  WRITECOMM            (USER.205)
+ 0002:0203       _aseghi
+ 0002:0201       _aseglo
+ 0002:0342       _edata
+ 0002:0362       _end
+ 0002:0218       _errno
+ 0002:01F4       _STKHQQ
+ 0000:0000  Imp  _wsprintf            (USER.420)
+ 0000:9876  Abs  __acrtmsg
+ 0000:9876  Abs  __acrtused
+ 0000:D6D6  Abs  __aDBdoswp
+ 0002:024A       __adbgmsg
+ 0000:D6D6  Abs  __aDBused
+ 0001:0828       __aFlshl
+ 0002:020A       __aintdiv
+ 0002:024E       __amblksiz
+ 0001:0B2E       __amsg_exit
+ 0001:0878       __astart
+ 0001:096A       __cexit
+ 0002:0247       __child
+ 0001:0922       __cinit
+ 0001:0B24       __cintDIV
+ 0002:0223       __cpumode
+ 0001:09C9       __ctermsub
+ 0001:097B       __c_exit
+ 0002:0200       __dllinit
+ 0002:0224       __doserrno
+ 0002:0342       __edata
+ 0002:0362       __end
+ 0002:0240       __environ
+ 0002:0249       __exitflag
+ 0002:020E       __fac
+ 0001:0A32       __FF_MSGBANNER
+ 0001:0C95       __findlast
+ 0002:0256       __fpinit
+ 0000:9876  Abs  __fptaskdata
+ 0001:0ACE       __fptrap
+ 0001:0CB6       __GetDGROUP
+ 0001:0B9E       __growseg
+ 0002:01F6       __hModule
+ 0001:0C2F       __incseg
+ 0002:01FC       __lpszCmdLine
+ 0001:0B70       __myalloc
+ 0001:0AD4       __nearstub
+ 0002:0226       __nfile
+ 0001:0D36       __nfree
+ 0001:0CDA       __nmalloc
+ 0001:0AD6       __NMSG_TEXT
+ 0001:0B0D       __NMSG_WRITE
+ 0001:0DBE       __nmsize
+ 0001:0909       __nomain
+ 0001:0D50       __nrealloc
+ 0002:0224       __oserr
+ 0002:0228       __osfile
+ 0002:021F       __osmajor
+ 0002:021E       __osminor
+ 0002:0222       __osmode
+ 0002:021E       __osver
+ 0002:0220       __osversion
+ 0002:0242       __pgmptr
+ 0002:0250       __pnhNearHeap
+ 0001:0A56       __setenvp
+ 0000:0001  Abs  __sizec
+ 0000:0000  Abs  __sized
+ 0001:0A06       __stubmain
+ 0001:0800       __STUBWEP
+ 0002:021A       __umaskval
+ 0002:01F8       __wDataSeg
+ 0001:0834       __wflags
+ 0002:01FA       __wHeapSize
+ 0000:0000  Imp  __WINFLAGS           (KERNEL.178)
+ 0002:021D       __winmajor
+ 0002:021C       __winminor
+ 0002:021C       __winver
+ 0002:0207       ___aDBrterr
+ 0002:0205       ___aDBswpflg
+ 0002:023C       ___argc
+ 0002:023E       ___argv
+ 0001:0CC6       ___ExportedStub
+
+  Address         Publics by Value
+
+ 0000:0000  Imp  GLOBALSIZE           (KERNEL.20)
+ 0000:0000  Imp  READCOMM             (USER.204)
+ 0000:0000  Imp  CLOSECOMM            (USER.207)
+ 0000:0000  Imp  GETCURRENTTIME       (USER.15)
+ 0000:0000  Imp  PEEKMESSAGE          (USER.109)
+ 0000:0000  Imp  FATALEXIT            (KERNEL.1)
+ 0000:0000  Imp  OPENCOMM             (USER.200)
+ 0000:0000  Imp  DOS3CALL             (KERNEL.102)
+ 0000:0000  Imp  GETCOMMEVENTMASK     (USER.209)
+ 0000:0000  Abs  __sized
+ 0000:0000  Imp  __WINFLAGS           (KERNEL.178)
+ 0000:0000  Imp  LOCKSEGMENT          (KERNEL.23)
+ 0000:0000  Imp  BUILDCOMMDCB         (USER.213)
+ 0000:0000  Imp  GLOBALREALLOC        (KERNEL.16)
+ 0000:0000  Imp  SETCOMMSTATE         (USER.201)
+ 0000:0000  Imp  LOCALFREE            (KERNEL.7)
+ 0000:0000  Imp  GETCOMMERROR         (USER.203)
+ 0000:0000  Imp  LOCALINIT            (KERNEL.4)
+ 0000:0000  Imp  WRITECOMM            (USER.205)
+ 0000:0000  Imp  INITTASK             (KERNEL.91)
+ 0000:0000  Imp  GETVERSION           (KERNEL.3)
+ 0000:0000  Imp  GETMODULEUSAGE       (KERNEL.48)
+ 0000:0000  Imp  UNLOCKSEGMENT        (KERNEL.24)
+ 0000:0000  Imp  LOCALREALLOC         (KERNEL.6)
+ 0000:0000  Imp  _wsprintf            (USER.420)
+ 0000:0000  Imp  FATALAPPEXIT         (KERNEL.137)
+ 0000:0000  Imp  LOCALSIZE            (KERNEL.10)
+ 0000:0000  Imp  GETDOSENVIRONMENT    (KERNEL.131)
+ 0000:0000  Imp  LOCALALLOC           (KERNEL.5)
+ 0000:0001  Abs  __sizec
+ 0000:9876  Abs  __fptaskdata
+ 0000:9876  Abs  __acrtmsg
+ 0000:9876  Abs  __acrtused
+ 0000:D6D6  Abs  __aDBdoswp
+ 0000:D6D6  Abs  __aDBused
+ 0001:0000       RE350_Open
+ 0001:01BA       RE350_Close
+ 0001:01EC       RE350_Command
+ 0001:07C4       WEP
+ 0001:0800       __STUBWEP
+ 0001:0828       __aFlshl
+ 0001:0834       __wflags
+ 0001:0878       __astart
+ 0001:0909       __nomain
+ 0001:0922       __cinit
+ 0001:096A       __cexit
+ 0001:097B       __c_exit
+ 0001:09C9       __ctermsub
+ 0001:0A06       __stubmain
+ 0001:0A32       __FF_MSGBANNER
+ 0001:0A56       __setenvp
+ 0001:0ACE       __fptrap
+ 0001:0AD4       __nearstub
+ 0001:0AD6       __NMSG_TEXT
+ 0001:0B0D       __NMSG_WRITE
+ 0001:0B24       __cintDIV
+ 0001:0B2E       __amsg_exit
+ 0001:0B70       __myalloc
+ 0001:0B9E       __growseg
+ 0001:0C2F       __incseg
+ 0001:0C95       __findlast
+ 0001:0CB6       __GetDGROUP
+ 0001:0CC6       ___ExportedStub
+ 0001:0CDA       __nmalloc
+ 0001:0D36       __nfree
+ 0001:0D50       __nrealloc
+ 0001:0DBE       __nmsize
+ 0002:0004       rsrvptrs
+ 0002:01F4       _STKHQQ
+ 0002:01F6       __hModule
+ 0002:01F8       __wDataSeg
+ 0002:01FA       __wHeapSize
+ 0002:01FC       __lpszCmdLine
+ 0002:0200       __dllinit
+ 0002:0201       _aseglo
+ 0002:0203       _aseghi
+ 0002:0205       ___aDBswpflg
+ 0002:0207       ___aDBrterr
+ 0002:020A       __aintdiv
+ 0002:020E       __fac
+ 0002:0218       _errno
+ 0002:021A       __umaskval
+ 0002:021C       __winminor
+ 0002:021C       __winver
+ 0002:021D       __winmajor
+ 0002:021E       __osver
+ 0002:021E       __osminor
+ 0002:021F       __osmajor
+ 0002:0220       __osversion
+ 0002:0222       __osmode
+ 0002:0223       __cpumode
+ 0002:0224       __doserrno
+ 0002:0224       __oserr
+ 0002:0226       __nfile
+ 0002:0228       __osfile
+ 0002:023C       ___argc
+ 0002:023E       ___argv
+ 0002:0240       __environ
+ 0002:0242       __pgmptr
+ 0002:0247       __child
+ 0002:0249       __exitflag
+ 0002:024A       __adbgmsg
+ 0002:024E       __amblksiz
+ 0002:0250       __pnhNearHeap
+ 0002:0256       __fpinit
+ 0002:0342       _edata
+ 0002:0342       __edata
+ 0002:0362       _end
+ 0002:0362       __end
+
+Program entry point at 0001:0878
