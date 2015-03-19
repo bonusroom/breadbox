@@ -12,7 +12,6 @@ class DXC390(object):
         self._connected = False
 
     def connect(self, attempts=3):
-        _attempts = attempts
         while self._connected == False and attempts > 0:
             self._ser.flushInput()
             handshake = self._ser.read(5)
@@ -31,11 +30,12 @@ class DXC390(object):
                     print(" -- Trying {} more times.\n".format(attempts))
                     sleep(2)
                 else:
-                    print("\n")
+                    print(" -- Aborting.\n")
 
     def disconnect(self):
         self._ser.flushOutput()
         self._ser.write("STOP\r")
+        sleep(1)
         self._connected = False
 
     connected = property(lambda self: self._connected)
@@ -43,8 +43,6 @@ class DXC390(object):
     def command(self, prefix, value, low=0, high=255):
         # TODO: check if prefix is 2 chars and 0<value<255
         xmit = "{prefix}{value:02X}\r".format(prefix=prefix, value=value)
-        self._ser.flushInput()
-        self._ser.flushOutput()
         self._ser.write(xmit)
         recv = self._ser.read(5)
         if recv != xmit:
