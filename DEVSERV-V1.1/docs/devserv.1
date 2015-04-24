@@ -1,0 +1,406 @@
+.\" $Id$
+.\"
+.\" Copyright (c) 1999
+.\" The Regents of the University of California.
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that: (1) source code distributions
+.\" retain the above copyright notice and this paragraph in its entirety, (2)
+.\" distributions including binary code include the above copyright notice and
+.\" this paragraph in its entirety in the documentation or other materials
+.\" provided with the distribution, and (3) all advertising materials mentioning
+.\" features or use of this software display the following acknowledgment:
+.\" ``This product includes software developed by the University of California,
+.\" Lawrence Berkeley Laboratory and its contributors.'' Neither the name of
+.\" the University nor the names of its contributors may be used to endorse
+.\" or promote products derived from this software without specific prior
+.\" written permission.
+.\" THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR IMPLIED
+.\" WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
+.\" MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+.\"
+.TH DEVSERV 1 "10 Aug 1999"
+.de HD
+.sp 1.5
+.B
+..
+.SH NAME
+devserv \- a device controller
+.SH SYNOPSIS
+.na
+.B devserv 
+[
+.B \-d
+.I debug_level 
+]
+[
+.B \-s
+n|N
+]
+[
+.B \-t
+.I time_to_live
+]
+[
+.B \-v
+.I video_address/video_port/video_ttl
+]
+[
+.B \-h
+.I video_host
+]
+[
+.B \-m
+S
+]
+[
+.B \-f
+.I file
+]
+[
+.B \--version
+]
+[
+.B \--help
+]
+.br
+.ad
+.SH DESCRIPTION
+.LP
+.I devserv 
+is a server for controlling video devices.  The program is
+meant to be used in conjunction with a client program such
+as 
+.I camclnt.  
+.I devserv
+listens on the network for requests from clients and carries 
+out these requests to drive the devices connected to the host computer.  
+The devices that are currently supported are the Sony EVI-D30, 
+Canon VC-C1, and Canon VC-C3 cameras in conjunction with the Panasonic 
+WJ-MX50 Digital A/V Mixer.
+.I devserv
+supports requests to pan, tilt, and zoom the cameras, select
+the input source to the mixer/switcher and do picture-in-picture. 
+Although intended for remote control of video devices,
+.I devserv
+can be used for local control (in case it is inconvenient
+to use the hand-held remote controller unit).  
+ 
+Requests are sent and received by UDP unicast.  
+.I Devserv
+multicasts description messages when a client explicitly requests 
+them, when any client request has been processed, or if 7.5 minutes 
+have elapsed since the last description message was sent.
+Any client may send requests as long as they conform to the
+"Camera Remote Control Command Language" (see COMMAND SET below).
+
+.SH OPTIONS
+.br
+.br
+.TP
+.B \-d
+Use 
+.I debug_level
+to specify what is displayed on the terminal.
+0: nothing is displayed; 1: initialization
+and termination status and error messages (if
+any) are displayed; 2: network events are
+displayed; 3: communication between the devices
+and
+.I devserv
+is displayed; 4: everything at levels 1, 2,
+and 3 is displayed. (The default level is 1.) 
+.TP
+.B \-s
+Specify "n" or "N" to suppress turning off the
+devices when the program is terminated. 
+.br
+.TP
+.B \-t
+Use 
+.I time_to_live
+to specify the time-to-live value for multicast messages.
+The default is 1.  
+.br
+.TP
+.B \-v
+Use 
+.I video_address/video_port/video_ttl
+to specify the address, port, and ttl used by the video tool
+for media transmission.  This information is included in the 
+description or status messages. 
+.br
+.TP
+.B \-h
+Use 
+.I video_host
+to specify the machine that is the source of the video. 
+The default is the localhost.  This information is
+included in the description or status messages. 
+.br
+.TP
+.B \-m
+Specify "S" for simulation mode.  This turns off actual RS232
+communication while behaving as though it were on.  This feature
+may be useful for developing/testing other features or applications.
+.br
+.TP
+.B \-f
+Use 
+.I file 
+to specify the file in the home directory that is to be used as
+the configuration file.  This file will be used instead of the default
+filename $HOME/.devserv.config. 
+.br
+.TP
+.B \--version
+Use this option to get the version number and quit. 
+.br
+.TP
+.B \--help
+Use this option to get the synopsis and quit. 
+
+.br
+.SH OPERATION
+Since the device controller is a server, it is intended 
+to be run like a daemon.  To operate the program, launch
+it from the command line.  To quit, type "control-C". Make 
+sure that the main power switches of all attached devices are "on".  
+On the Sony EVI-D30 and Panasonic WJ-MX50, the main power switches 
+are on the back of the units. Also make sure that the camera control 
+and pan and tilter units of the Canon VC-C3 camera are turned on.  
+The Canon VC-C1, Sony EVI-D30, and Panasonic WJ-MX50 allow the 
+power to be turned on and off via remote control (i.e., the power 
+buttons on the front of these devices can be controlled by the 
+device server).  However, the Canon VC-C3 does not have
+this capability.  Therefore,
+.I devserv
+turns on the power for the Sony EVI-D30, Canon VC-C1, and 
+Panasonic Wj-MX 50 at startup (as long as the main power is 
+manually turned on) and turns off the power when you quit the 
+program (unless the -s option is used).
+
+.I devserv
+reads a file at startup to determine the hardware configuration.  
+This file can also be used to specify video information and set 
+network addresses if you wish to override the default values.  
+(See CONFIGURATION FILE and NETWORK COMMUNICATION below.)  
+
+.HD
+.I HARDWARE CONFIGURATION
+.LP
+Since the current version of 
+.I devserv
+(v1.0) supports RS232 devices, the RS232 cables for
+the cameras and video switcher must be connected to serial 
+ports (e.g., port A and/or B on a SPARCstation and COM1 
+through COM4 on a PC). Sony EVI-D30 cameras can be daisy-chained    
+with up to 7 cameras per port.  Refer to the user manuals for the
+specific devices for connections and configuration.  Note that
+Panasonic WJ-MX50 has an "RS422/RS232C Selection Switch" above
+the "Editing Control Connector" on its back panel.  Set the 
+selection switch to "RS232C."  You must also set the SW701
+switch to meet modem requirements.  This is described in the
+Operating Instructions Manual for the Panasonic WJ-MX50.
+
+.HD
+.I CONFIGURATION FILE 
+.LP
+This file is stored in the home directory as $HOME/.devserv.config.
+It specifies the hardware configuration, network parameters, and 
+video information.  Entries are in the form:  
+.br
+	keyword value ...
+.br
+	      or
+.br
+	keyword label value ...
+.br
+
+If a value contains any spaces, it must be enclosed in double
+quotes.
+
+.br  
+The hardware configuration includes the type of devices and what
+ports they are connected to, client "handles" for referring to devices, 
+and internal device addresses. The serial ports are listed by their full
+pathnames, e.g., for solaris, use /dev/ttyx (where x = a,b,
+corresponds to ports A and B, respectively); for freeBSD, 
+use /dev/ttydx (where x = 0,1,..., corresponds to COM1, COM2,
+etc., respectively); for Irix, use /dev/ttymx (where x = 0,1,2,...).
+
+Each device entry is in the form:
+.br
+.br
+.br
+     device <make> <model> <device_addr> <type> <unit no.> \
+.br  
+	<port>  <lens_type>
+.br
+.br
+.br
+
+The device address given by <device_addr> is used for internal
+device addressing.  The devices must be numbered 1, 2, 3, etc., in 
+order from the closest to the computer to the farthest away.  
+.br
+NOTE: 
+For the Sony EVI-D30, the address number is NOT the number on the 
+back of the unit. The camera numbers 1, 2, and 3 on the back of the 
+camera are for use with the hand-held remote commander unit.  Also,
+the address number is INDEPENDENT of the <unit no.>.
+
+The type of lens (standard or wide-angle) on a camera is given
+by the <lens-type> field.  If left blank, the default (standard)
+is used. If a wide-angle lens is used, specify "w" or "W".  
+
+Since the client program will refer to the devices by the
+"handle" assigned by the device controller and this handle 
+consists of the "type" and "unit no.", you must list these
+values.  Sample entries for a SUN workstation are:
+
+.br
+.br
+.br
+     device Sony EVI-D30 1 camera 2 /dev/ttya
+.br  device Sony EVI-D30 2 camera 1 /dev/ttya
+.br  device Panasonic WJ-MX50 1 videoswitch 1 /dev/ttyb
+
+.br
+.br
+.br
+                    or
+
+.br
+.br  
+.br
+     device Sony EVI-D30 1 camera 1 /dev/ttya
+.br  device Sony EVI-D30 2 camera 2 /dev/ttya
+.br  device Canon VC-C3 1 camera 3 /dev/ttyb w  
+.br
+.br
+.br
+
+A sample entry for freeBSD where a Canon VC-C3 camera
+is attached to COM2 would be:
+
+.br
+.br
+.br
+     device Canon VC-C3 1 camera 3 /dev/ttyd1 w 
+.br
+.br
+.br
+
+You may use "cam" for "camera" and "vid" for
+"videoswitch".  The client handles in the above
+entries would be: "cam 1", "cam 2", "cam 3", and
+"vid 1".  
+
+The video information is optional and includes the
+address, port, and time-to-live used by the video tool
+for media transmission, the host that is the source of the 
+video feed, and a text description. Sample entries are:
+.br
+	video 224.1.2.3/12345/16
+.br
+	video_host thismachine.domain.com 
+.br
+	text "Main Conference Room, Building XXX"
+.br
+
+Any line that begins with "#" is treated as a comment.
+
+The network parameters are described below.
+
+
+.I NETWORK COMMUNICATION 
+.LP
+The device controller uses UDP to receive unicast client
+requests. The default UDP port is 5555. IP multicast is 
+used by the device controller to send status or description 
+messages.  The default multicast address and port are 224.35.36.37 
+and 5556.  To override any or all of these values, make entries in   
+the $HOME/.devserv.config file.  Entries must be in the following 
+format:
+.br
+.br
+.br
+
+     address udpPort <port>
+.br  address multicastAddress <address>
+.br  address multicastPort <port>
+.br
+.br
+.br
+
+Example entries are:
+.br
+.br
+.br
+     address udpPort 8885
+.br  address multicastAddress 224.1.2.3
+.br  address multicastPort 1234 
+.br
+.br
+.br
+
+The standard socket interface is used for this communication.
+
+Users may write their own client programs. They can use
+the standard socket interface for network communication
+between the clients and the device controller or they 
+may use the common communication library developed under
+the "Collaboratory Interoperability Framework" project
+(CIF).  (See http://www-itg.lbl.gov/CIF).  To accommodate
+clients that utilize the CIF communication library, 
+.I devserv
+also listens on a CIF UDP port to receive unicast client
+requests and transmits status and description messages
+via a CIF multicast channel.  The default values for
+these communication channels are:  udp port = 7775,
+multicast address =  224.35.36.37, multicast port = 7776.
+To override these values, make entries in the $HOME/.devserv.config
+file in the following format:
+.br
+.br
+.br
+    address cifUDPPort <port>
+.br address cifUUMAddress <multicast address>
+.br address cifUUMPort <multicast port>
+.br
+.br
+.br
+
+.I COMMAND SET 
+.LP
+The device controller communicates with the client using 
+ASCII text messages.  While the camclnt program is now
+available (from http://www-itg.lbl.gov/mbone/devserv),
+new clients may be written.  In order to communicate with 
+.I devserv,
+messages must follow the format given by the "Camera
+Remote Control Command Language", which is available
+at http://www-itg.lbl.gov/mbone/devserv.    
+
+NOTE:  A timestamp is given in each request.  If the
+timestamp is less than that of the previously accepted 
+command, the command is ignored (unless it is a request
+for a description).
+
+.SH BUGS 
+.I devserv 
+may not accurately report whether a device is available
+or not when there are hardware failures during execution.
+Multicast messages are currently incomplete (e.g., the
+Camera Remote Control Command Language specifies that
+description messages contain a reference to the last
+command accepted and this has not yet been implemented). 
+
+.SH AUTHORS
+Marcia Perry (MPerry@lbl.gov), Lawrence Berkeley National Laboratory, 
+Berkeley, CA
+.br
+Deb Agarwal (DAAgarwal@lbl.gov), University of California, Berkeley
+and Lawrence National Berkeley Laboratory, Berkeley, CA

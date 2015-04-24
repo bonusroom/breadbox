@@ -1,0 +1,241 @@
+devserv:  README
+
+The package for devserv-src-v1.1.tar.gz contains these files:
+	README (this file)
+	devserv.1 (man page, in docs/)
+	.devserv.config (text file, in docs/)
+ 	acconfig.h
+	files to create the makefile (required by configure):
+		configure
+		configure.in
+		ChangeLog
+		Makefile.am
+		Makefile.in
+		aclocal.m4
+		config.h.in
+		config.sub
+		config.guess
+		missing
+	AUTHORS
+	INSTALL
+	install-sh
+	mkinstalldirs
+
+	The following files are in /src:
+
+	Makefile.am (to create a Makefile)
+	Makefile.in (to create a Makefile)
+	config.h.in (to create a Makefile)
+	devserv.cc
+	network.h
+	network.cc
+	udpnet.h
+	udpnet.cc
+	ipnet.h
+	ipnet.cc
+	serialport.h
+	serialport.cc
+	Device.h
+	Device.cc
+	Switcher.h
+	Switcher.cc
+	utils.h
+	utils.cc
+	panasonicwjmx50.h
+	panasonicwjmx50.cc
+	Cam.h
+	Cam.cc
+	sonyevid30.h		
+	sonyevid30.cc
+	canonvcc3.h
+	canonvcc3.cc
+	canonvcc1.h
+	canonvcc1.cc
+
+The packages for devserv-bin-v1.1-solaris2.6.tar.gz, devserv-bin-v1.1-
+freeBSD.tar.gz contain, and devserv-bin-v1.1-linux.tar.gz:
+	README (this file)
+	AUTHORS
+	devserv.1 (man page, in docs/)
+	.devserv.config (text file, in docs/)
+	devserv (binary, in bin/)
+
+
+Platform:  The single-threaded versions of devserv (v0.x) were developed and 
+           tested under Solaris 2.6 and ported to freeBSD 2.2.7/2.2.8/3.1, 
+	   Irix 6.2/6.4, and Windows 95/98/NT.  Starting with version 1.0,
+	   devserv is multithreaded and was ported to Linux 2.2.5 and Windows98. 
+	   The solaris binary includes support for the CIF communication library.
+	   (See our website http://www-itg.lbl.gov/mbone/devserv for
+	   information about the CIF communication library.)
+
+To build devserv (under UNIX): 
+	Starting with version 1.1, we are using GNU tools for automated
+	generation of makefiles.  We have provided the 'configure' script
+	and necessary input files for creating a makefile for your platform.
+	To build devserv:
+		-- run "./configure" to generate a makefile
+		-- run "make" to build the binary
+		-- run "make install" to install the binary in /usr/local/bin
+		   
+	NOTES:  
+	    ******* CIF *********
+            Currently CIF only works if you are using the Sun CC compiler.
+            To enforce the use of cc and CC, do the following:
+        	setenv CC cc
+        	setenv CXX CC
+
+	    Run configure with the "--with-cif=<path-to-cif>" option to
+	    specify the parent directory for the cif includes and libs.
+            Be sure to delete your config.cache before running the configure
+            script again.
+
+            ******* INSTALLATION DIRECTORY ********
+	    If you want to install devserv in a directory other than /usr/local/
+            bin, run configure with the "--prefix=<install-directory>" option. 
+
+
+To run devserv (see the man page for further details):
+
+	1). Install the binary in any directory (or run 'make install').  Be 
+            sure you have read and write permissions for the serial ports you 
+	    are using.
+
+	2). Install the hardware configuration file,
+	    .devserv.config, in your home directory and
+	    edit the file to reflect your device connections.
+	    You may also make entries to override the default
+	    network addresses and ports, and to specify video
+	    This file treats any line beginning with "#" as a
+	    comment.  
+
+	    Devserv reads this file at startup to learn about the
+	    devices it must support. So if you change the hardware
+	    configuration, you must edit the devices entries in
+	    this file.
+
+	    Entries for devices are stored in the following format: 
+
+	      device <make> <model> <device no.> <type> <unit no.> \
+		      <serial port> <lens-type>
+
+ 
+	    **** NOTE ************************************************** 
+
+	    The device number given by <device no.> is used for internal
+	    device addressing.  The Sony EVI-D30 requires the addresses to 
+            be numbered 1, 2, 3, etc., in order from the closest to the 
+            computer to the farthest away. This number is NOT the camera 
+            number on the back of the camera unit.  The camera numbers 1, 2, 
+            and 3 on the back of the Sony EVI-D30 are for use with the 
+            hand-held remote commander unit.  <device no.> IS INDEPENDENT OF 
+            <unit no.>.  
+
+	    ***********************************************************
+
+            The <type> and <unit no.> constitute the "handle" used by the 
+	    client to make requests to move the device. <unit no.> is
+	    assigned by the devserv user.  It does not have to be assigned
+	    on the basis of hardware connections.
+
+	    The <serial port> gives the full pathname for the serial port
+	    to which the device is connected.  For SUN workstations, use
+	    /dev/ttya and /dev/ttyb, for ports A and B, respectively.  On 
+	    a PC running freeBSD, use /dev/ttyd0, /dev/ttyd1, /dev/ttyd2, etc.
+	    for serial ports COM1, COM2, COM3, etc., respectively.  For linux,
+	    use /dev/ttyS0, /dev/ttyS1, etc. for ports COM1, COM2, etc.	 
+
+	    <lens type> gives the type of lens for a camera.  If left
+	    blank, the default is used, which is a standard lens.  If
+	    the camera is using a wide-angle lens, specify "w" or "W".
+	    
+	    Here are sample entries: 
+	      device: Canon VC-C3 1 camera 1  /dev/ttyb w
+	      device: Sony EVI-D30 1 camera 2 /dev/ttya 
+	      device: Sony EVI-D30 2 camera 3 /dev/ttya	
+	   
+	    These entries indicate that two Sony EVI-D30 cameras are
+	    connected to port A on a SUN workstation and a Canon VC-C3
+	    camera with a wide-angle lens is connected to port B.  The 
+	    Sonys are chained.
+
+	    The client will refer to the Sony cameras as "camera 2" and
+	    "camera 3", while devserv will use the device numbers 1 and 2.
+	    The client will refer to the Canon as "camera 1".  The Canon is
+	    is the first and only device attached to Port B, so it is 
+	    given a device number of 1.  
+
+	    NOTE: You may use "cam" or "vid" for "camera" and "videoswitch",
+	          respectively in the <type> field.	
+
+	3). Run devserv from the command line. 
+            Devserv supports the following command line options:
+		[-d <debug_level>] [-s N (or n)] [-m S] [-t <ttl>] 
+		[-v <video_address/video_port/video_ttl>]
+		[-h <video_host>] [-f <file>] [--version] [--help]
+
+	    If the "-d" option is used, the terminal will display
+	    output for the category indicated by the given integer.
+	    Specify debug_level 0 if you do not want anything displayed;
+	    specify 1 if you want only high-level information (e.g.,
+	    initialization and termination status and error messages, if
+	    any); specify 2 if you want to display network events; 
+	    specify 3 if you want to display communication between
+	    devserv and the devices; specify 4 if you want everything
+	    displayed.  1 is the default debug_level.
+	    
+	    If the "-s" option is used, "N" or "n" means do NOT turn off
+	    the power upon termination.	
+
+	    If you specify "-m S", you are using simulated mode.  This
+	    means that actual RS232 communication is turned off although
+	    the application proceeds as though it were turned on.  This
+	    feature may be useful for developing/testing other features or
+	    applications.
+
+	    If the "-t" option is used, the integer given for <ttl>
+	    is the time-to-live for multicast messages.  1 is the
+	    default time-to-live. 
+
+	    If the "-v" option is used, the given string (delimited by
+	    "/") specifies the address, port, and time-to-live used by
+	    the video tool for media transmission.  This information is 
+	    included in description messages.  The default is 0.0.0.0/0/0.
+
+	    If the "-h" option is used, video_host is the computer 	
+	    that is the source of the camera feed.  The default is
+	    the local host.  This information is included in description
+	    messages.
+
+	    If the "-f" option is used, $HOST/file is used instead of $HOME/
+	    .devserv.config as the configuration file.	
+
+	    If "--version" is specified, the version number is displayed.
+
+	    If "--help" is specified, the command line synopsis is displayed.
+	    	  
+
+	4). Make sure that the main power switches are on "ON"
+	    for all devices and that, if you are using the
+	    Canon VC-C3, both the main power switch (on the CCU)
+	    and the power switches for the pan/tilter and camera 
+	    control units are on (the three LEDs should be green).
+	    The Sony EVI-D30 and the Panasonic WJ-MX50 have
+	    auxiliary power switches (in the front of the device)
+	    that can be controlled by the computer. The Canon VC-C1 
+	    lets a computer control its power, if the main power is 
+	    manually turned on.  Thus, devserv sends "power on" and 
+	    "power off" commands to the Sony EVI-D30, Canon VC-C1,
+	    and Panasonic WJ-MX50.    
+
+	    However, the Canon VC-C3 does not allow the power to be
+	    controlled by a computer so this must be done manually.
+
+To do:
+    Add support for more devices (e.g., Panasonic WJ-MX20).
+
+Authors:
+    Paul Mcavoy (mcavoy@george.lbl.gov)
+    Marcia Perry (MPerry@lbl.gov)
+
+$Id: README,v 1.8 1999/08/10 19:54:39 mperry Exp $ 	

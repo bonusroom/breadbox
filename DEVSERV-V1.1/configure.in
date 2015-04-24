@@ -1,0 +1,206 @@
+dnl  Copyright (c) 1998 Regents of the University of California.
+dnl  All rights reserved.
+  
+dnl  Redistribution and use in source and binary forms, with or without
+dnl  modification, are permitted provided that the following conditions
+dnl  are met:
+dnl  1. Redistributions of source code must retain the above copyright
+dnl     notice, this list of conditions and the following disclaimer.
+dnl  2. Redistributions in binary form must reproduce the above copyright
+dnl     notice, this list of conditions and the following disclaimer in the
+dnl     documentation and/or other materials provided with the distribution.
+dnl  3. All advertising materials mentioning features or use of this software
+dnl     must display the following acknowledgment:
+dnl       This product includes software developed by the Imaging and
+dnl       Distributed Collaboration Group at Lawrence Berkeley
+dnl       National Laboratory.
+dnl  4. Neither the name of the University nor of the Laboratory may be used
+dnl     to endorse or promote products derived from this software without
+dnl     specific prior written permission.
+ 
+dnl  THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+dnl  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+dnl  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+dnl  ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+dnl  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+dnl  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+dnl  OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dnl  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+dnl  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+dnl  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+dnl  SUCH DAMAGE.
+
+dnl Author: Paul Mcavoy (mcavoy@george.lbl.gov)
+dnl $Id: configure.in,v 1.12 1999/08/10 20:39:06 mperry Exp $
+dnl Process this file with autoconf to produce a configure script.
+
+AC_INIT(src/devserv.cc)
+
+AM_INIT_AUTOMAKE(devserv,1.1)
+AM_CONFIG_HEADER(src/config.h)
+
+AC_CANONICAL_HOST
+
+dnl Checks for programs.
+
+AC_ISC_POSIX
+AC_PROG_AWK
+AC_PROG_CC
+AC_PROG_CXX
+AC_PROG_LN_S
+
+dnl Checks for libraries.
+
+dnl Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS(fcntl.h sys/file.h sys/ioctl.h sys/time.h termio.h unistd.h)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_C_INLINE
+AC_HEADER_TIME
+
+dnl Checks for library functions.
+dnl AC_PROG_GCC_TRADITIONAL
+AC_TYPE_SIGNAL
+AC_CHECK_FUNCS(gethostname gettimeofday select socket)
+
+dnl Search for Xtra stuff we need: sockets etc, but not X! :)
+AC_PATH_XTRA
+XLIBS="$X_EXTRA_LIBS"
+
+dnl LIBRARY_PATH=$x_libraries
+dnl XCFLAGS="$X_CFLAGS"
+dnl XLFLAGS="$X_LIBS"
+dnl lib_search_path="$lib_search_path $XLFLAGS"
+dnl inc_search_path="$inc_search_path $XCFLAGS"
+
+dnl Look for custom needed libs
+dnl ===============================================
+AC_CHECKING("$host_os specifics" )
+case "$host" in
+  *-sun-*)
+dnl	AC_CHECK_LIB(xnet,inet_addr)
+dnl	AC_CHECK_LIB(nsl,gethostbyname)
+dnl	AC_CHECK_LIB(socket,setsockopt)
+	AC_CHECK_LIB(pthread,pthread_cond_init )
+
+	dnl Sun CC needs -mt for correct threading support
+	if test $CXX = CC; then
+	    LDFLAGS="$LDFLAGS -mt"
+	fi
+	;;
+
+  *-sgi-*)
+	AC_CHECK_LIB(pthread,pthread_cond_init)
+	;;
+
+  *-freebsd*)
+	AC_CHECK_LIB(c_r,pthread_cond_init)
+	;;
+
+  *-linux-*)
+	AC_CHECK_LIB(pthread,pthread_cond_init)
+	;;
+
+  *)  AC_CHECKING("Undefined host '$host'.  Check configure.in")
+	;;
+esac
+
+
+dnl Checks for user options
+dnl ===============================================
+
+dnl ** Note: path to cif should be absolute.. not sure how to get around this
+
+devserv_cv_cif=no
+AC_ARG_WITH(cif,
+	[  --with-cif[=DIR]        Use CIF library (Requires CC Compiler)],
+	[
+	AC_MSG_CHECKING(for CIF)
+	dnl -- check for cif installed someplace
+	if test $withval != no -a $CXX = CC ; then
+	  if test $withval = yes; then
+		dnl -- installed above us?	
+		if test -f $srcdir/../CIF/lib/libCIF_Comm.a; then
+			CPPFLAGS="$CPPFLAGS -I${srcdir}/../CIF/lib"
+			LDFLAGS="$LDFLAGS -L${srcdir}/../CIF/include"
+			devserv_cv_cif=$srcdir/../CIF
+		dnl -- installed in normal location?
+		elif test -d $prefix/lib/libCIF_Comm.a; then
+			CPPFLAGS="$CPPFLAGS -I${prefix}/lib"
+			LDFLAGS="$LDFLAGS -L${prefix}/include"
+			devserv_cv_cif=yes
+		fi
+	dnl -- installed somplace else?
+	  else
+		if test -d $withval/include; then
+			LDFLAGS="$LDFLAGS -L${withval}/lib"
+			CPPFLAGS="$CPPFLAGS -I${withval}/include"
+			devserv_cv_cif=$withval
+		fi
+	  fi
+	  AC_MSG_RESULT($devserv_cv_cif)
+	
+	dnl -- try to link with cif lib
+dnl	  AC_CHECK_LIB(globus_common,globus_module_activate,
+		AC_DEFINE(USE_CIF)
+		LIBS="$LIBS -lCIF_Comm -lglobus_nexus -lglobus_common -lglobus_dc"
+dnl	  )
+	else
+	  AC_MSG_RESULT("Sun CC compiler is required")
+	fi
+	])
+
+devserv_cv_akenti=no
+AC_ARG_WITH(akenti, [  --with-akenti[=DIR]     Use AKENTI security library],
+	[
+	AC_MSG_CHECKING(for AKENTI)
+	dnl -- check for akenti installed someplace
+	if test $withval = yes; then
+		dnl -- instaled above us?	
+		if test -f $srcdir/../Akenti/lib/libakenti.a; then
+			CPPFLAGS="$CPPFLAGS -I${srcdir}/../Akenti/lib"
+			LDFLAGS="$LDFLAGS -L${srcdir}/../Akenti/include"
+			devserv_cv_akenti=$srcdir/../Akenti
+		dnl -- installed in normal location?
+		elif test -d $prefix/lib/libakenti.a; then
+			CPPFLAGS="$CPPFLAGS -I${prefix}/lib"
+			LDFLAGS="$LDFLAGS -L${prefix}/include"
+			devserv_cv_akenti=yes
+		fi
+	dnl -- installed somplace else?
+	else
+		if test -d $withval/include; then
+			LDFLAGS="$LDFLAGS -L${withval}/lib"
+			CPPFLAGS="$CPPFLAGS -I${withval}/include"
+			devserv_cv_akenti=$withval
+		fi
+	fi
+	AC_MSG_RESULT($devserv_cv_akenti)
+	
+	dnl -- try to link with lib
+	AC_CHECK_LIB(akentilib,akentifunction,
+		AC_DEFINE(USE_AKENTI)
+		LIBS="$LIBS -lakenti")
+	])
+
+AC_SUBST(SHELL)dnl
+shell=`which sh`
+
+dnl DFLAGS="-g -DDEBUG"
+AC_SUBST(DFLAGS)
+
+dnl AC_SUBST(X_LIBRARY_PATH)
+AC_SUBST(XLIBS)
+
+LIBRARY_SEARCH_PATH="$lib_search_path"
+HEADER_SEARCH_PATH="$inc_search_path"
+
+AC_SUBST(LIBRARY_SEARCH_PATH)
+AC_SUBST(HEADER_SEARCH_PATH)
+
+dnl Make these target files
+
+AC_OUTPUT(Makefile src/Makefile)
+
